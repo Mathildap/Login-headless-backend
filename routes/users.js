@@ -37,9 +37,9 @@ router.post('/', function(req, res, next) {
         userId = users[user].id;
         console.log("Användare inloggad: ", userId);
 
-        // Skickar till localstorage
+        // Skickar till localstorage/scratch-filen
         localStorage.setItem("User", userId);
-        console.log(localStorage.getItem("User"));
+        // res.send(userId);
 
         // Skickar svar till console-loggen
         res.json("Från backend: Inloggning lyckad");
@@ -47,8 +47,8 @@ router.post('/', function(req, res, next) {
 
       };
     };
-
-    console.log("Fel inloggning");
+    const Err = new Error("404, Fel inloggning!");
+    console.error(Err.message);
 
     // Skickar svar till console-loggen
     res.json("Från backend: Misslyckad inloggning");
