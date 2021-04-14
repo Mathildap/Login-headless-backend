@@ -3,8 +3,6 @@ var router = express.Router();
 const fs = require("fs");
 const cors = require("cors");
 const rand = require("random-key");
-const LocalStorage = require("node-localstorage").LocalStorage;
-localStorage = new LocalStorage("./scratch");
 router.use(cors());
 
 /* GET users listing. */
@@ -34,17 +32,14 @@ router.post('/', function(req, res, next) {
 
       if (getUser.userName == users[user].userName && getUser.passWord == users[user].passWord) {
 
+        // Hämta id för inloggad användare
         userId = users[user].id;
         console.log("Användare inloggad: ", userId);
 
-        // Skickar till localstorage/scratch-filen
-        localStorage.setItem("User", userId);
-        // res.send(userId);
-
-        // Skickar svar till console-loggen
-        res.json("Från backend: Inloggning lyckad");
+        // Skicka id till klienten
+        res.json(userId);
+        
         return;
-
       };
     };
     const Err = new Error("404, Fel inloggning!");
